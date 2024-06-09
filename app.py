@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, send_from_directory
+from flask import Flask, request, jsonify, send_from_directory, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_swagger_ui import get_swaggerui_blueprint
 from datetime import datetime
@@ -115,7 +115,7 @@ def delete_usage(usage_id):
     return jsonify({'message': 'Usage deleted successfully'})
 
 
-# Serve Swagger UI at the root URL
+# Serve Swagger UI
 SWAGGER_URL = '/swagger'
 API_URL = '/static/swagger.json'
 
@@ -127,6 +127,12 @@ swaggerui_blueprint = get_swaggerui_blueprint(
     }
 )
 app.register_blueprint(swaggerui_blueprint, url_prefix=SWAGGER_URL)
+
+
+# Serve the index.html at the root URL
+@app.route('/')
+def index():
+    return send_from_directory('static', 'index.html')
 
 
 @app.route('/static/<path:path>')
