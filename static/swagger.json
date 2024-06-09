@@ -1,0 +1,187 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Incubator API",
+    "version": "1.0.0"
+  },
+  "basePath": "/",
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/users": {
+      "get": {
+        "summary": "Get all users",
+        "responses": {
+          "200": {
+            "description": "A list of users",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a new user",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User created"
+          }
+        }
+      }
+    },
+    "/users/{user_id}": {
+      "put": {
+        "summary": "Update an existing user",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "User object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User updated"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a user",
+        "parameters": [
+          {
+            "name": "user_id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "User deleted"
+          }
+        }
+      }
+    },
+    "/usages/{usage_id}": {
+      "put": {
+        "summary": "Update an existing usage",
+        "parameters": [
+          {
+            "name": "usage_id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Usage object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Usage"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usage updated"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a usage",
+        "parameters": [
+          {
+            "name": "usage_id",
+            "in": "path",
+            "required": true,
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usage deleted"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "UserID": {
+          "type": "integer"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "PhoneNumber": {
+          "type": "string"
+        },
+        "Usages": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Usage"
+          }
+        }
+      }
+    },
+    "Usage": {
+      "type": "object",
+      "properties": {
+        "UsageID": {
+          "type": "integer"
+        },
+        "UserID": {
+          "type": "integer"
+        },
+        "UsageDetails": {
+          "type": "string"
+        },
+        "IncubatorType": {
+          "type": "string"
+        },
+        "StartTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "EndTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "Comment": {
+          "type": "string"
+        },
+        "Status": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
